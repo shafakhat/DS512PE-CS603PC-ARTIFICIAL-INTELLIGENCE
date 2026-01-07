@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Agent</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+</head>
+
+<body>
+    <h2>Simple Reflex Agent – Weather</h2>
+
+    <select id="weather">
+        <option value="0">Sun</option>
+        <option value="1">Rain</option>
+        <option value="2">Cloudy</option>
+        <option value="3">Storm</option>
+    </select>
+
+    <button id="run">Run Agent</button>
+
+    <div Style="margin-top:100px" id="output" value=" "></div>
+
+    <py-script>
+from pyscript import display
+from js import document
+
+class SimpleAgent:
+    percepts = ["Sun", "Rain", "Cloudy", "Storm"]
+
+    @staticmethod
+    def weatherAgent(i):
+        if SimpleAgent.percepts[i] == "Sun":
+            return "Wear Sunglasses"
+        elif SimpleAgent.percepts[i] in ["Rain", "Cloudy"]:
+            return "Carry Umbrella"
+        elif SimpleAgent.percepts[i] == "Storm":
+            return "Stay Home"
+        else:
+            return "Normal Day"
+
+    def run_agent(event):
+        i = int(document.getElementById("weather").value)
+        action = SimpleAgent.weatherAgent(i)
+        document.getElementById("output").value = ""
+        display(action, target="output")
+
+    document.getElementById("run").onclick = run_agent
+    </py-script>
+</body>
+</html>
+
